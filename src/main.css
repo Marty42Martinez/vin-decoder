@@ -1,4 +1,29 @@
+html {
+  background: rgb(55,46,41);
+  color: rgb(236,185,57);
+}
+input, button {
+  background: rgb(240,199,94);
+  color: rgb(114,98,85);
+}
 dt{
   font-size:23px;
   padding: 5px;
+}
+
+#report {
+  display: flex;
+  flex-direction: row;
+  color: rgb(236,185,57);
+}
+#vehicle-report {
+  order: 0;
+  border: 5px outset black;
+  margin: 5px;
+}
+
+#empty-fields {
+  order: 1;
+  border: 5px solid black;
+  margin: 5px;
 }

@@ -1,4 +1,6 @@
 // const inputVIN = '1GNFC23049R278215';
+import createVINList from './create-vin-list.js';
+import createFields from './create-fields.js';
 let inputVIN = '';
 const inputForm = document.getElementById('vin-input');
 inputForm.addEventListener('submit', function(event) {
@@ -13,8 +15,9 @@ inputForm.addEventListener('submit', function(event) {
   
   request.onload = function() {
     const vehicleReport = document.getElementById('vehicle-report');
+    const emptyFields = document.getElementById('empty-fields');
     const data = JSON.parse(request.response);
-    const listNode = document.createElement('dl');
+    
     const unFilledProperties = [];
     
     if(request.status >= 200 && request.status < 400) {
@@ -22,23 +25,23 @@ inputForm.addEventListener('submit', function(event) {
         const vehicleLabel = data.Results[i];
         if(vehicleLabel.Value === null) {
           unFilledProperties.push(vehicleLabel);
-        } else {
-          const termNode = document.createElement('dt');
-          const defNode = document.createElement('dd');
-          
-          termNode.textContent = vehicleLabel.Variable;
-          defNode.textContent = vehicleLabel.Value;
 
-          listNode.appendChild(termNode);
-          listNode.appendChild(defNode);
+        } else {
+          const dom = createVINList(vehicleLabel);
+          vehicleReport.appendChild(dom);
         }
       
       }
     } else {
       console.log('error');
     }
-    vehicleReport.appendChild(listNode)
-  }
+    
+    unFilledProperties.forEach(variable => {
+      const field = createFields(variable);
+      emptyFields.appendChild(field);
+    });
+   
+  };
 
   request.send();
 });
