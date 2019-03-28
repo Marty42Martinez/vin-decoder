@@ -7,9 +7,17 @@ const vinSection = document.getElementById('vin-section');
 const vehicleReport = document.getElementById('vehicle-report');
 const saveReportButton = document.getElementById('save-report');
 
-// auth.onAuthStateChanged(() => {
-
-// });
+auth.onAuthStateChanged(user => {
+  if(user) {
+    const signOutButton = document.getElementById('sign-out');
+    signOutButton.addEventListener('click', () => {
+      auth.signOut();
+      window.location = './auth.html';
+    });
+  } else {
+    window.location = './auth.html';
+  }
+});
 
 inputForm.addEventListener('submit', event => {
   event.preventDefault();

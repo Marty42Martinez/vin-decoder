@@ -9,6 +9,15 @@ input, button, textarea {
 .hidden {
   display: none;
 }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+header > input {
+  align-self: center;
+}
+
 dt{
   font-size:23px;
   padding: 5px;
