@@ -3,8 +3,11 @@ import createVINList from './create-vin-list.js';
 import createFields from './create-fields.js';
 let inputVIN = '';
 const inputForm = document.getElementById('vin-input');
+const vehicleReport = document.getElementById('vehicle-report');
+
 inputForm.addEventListener('submit', function(event) {
   event.preventDefault();
+  clearDisplay(vehicleReport);
   inputVIN = inputForm.vin.value;
   
   var request = new XMLHttpRequest();
@@ -14,37 +17,30 @@ inputForm.addEventListener('submit', function(event) {
   
   
   request.onload = function() {
-    const vehicleReport = document.getElementById('vehicle-report');
-    const emptyFields = document.getElementById('empty-fields');
+    // const emptyFields = document.getElementById('empty-fields');
     const data = JSON.parse(request.response);
-    
-    const unFilledProperties = [];
     
     if(request.status >= 200 && request.status < 400) {
       for(let i = 0; i < data.Count; i++) {
         const vehicleLabel = data.Results[i];
-        if(vehicleLabel.Value === null) {
-          unFilledProperties.push(vehicleLabel);
-
-        } else {
-          const dom = createVINList(vehicleLabel);
-          vehicleReport.appendChild(dom);
-        }
+        const dom = createFields(vehicleLabel);
+        vehicleReport.appendChild(dom);
       
       }
     } else {
       console.log('error');
     }
     
-    unFilledProperties.forEach(variable => {
-      const field = createFields(variable);
-      emptyFields.appendChild(field);
-    });
-   
   };
 
   request.send();
 });
+
+function clearDisplay(node) {
+  while(node.children.length > 0) {
+    node.firstElementChild.remove();
+  }
+}
 
 
 //sample VINs

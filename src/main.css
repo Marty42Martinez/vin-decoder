@@ -1,10 +1,10 @@
 html {
-  background: rgb(55,46,41);
-  color: rgb(236,185,57);
+  background: slategrey;
+  color: rgb(5, 5, 202);
 }
-input, button {
-  background: rgb(240,199,94);
-  color: rgb(114,98,85);
+input, button, textarea {
+  background: rgb(139, 166, 192);
+  color: rgb(5, 5, 202);
 }
 dt{
   font-size:23px;
@@ -14,16 +14,23 @@ dt{
 #report {
   display: flex;
   flex-direction: row;
-  color: rgb(236,185,57);
+  color: rgb(5, 5, 202);
 }
 #vehicle-report {
-  order: 0;
-  border: 5px outset black;
+  /* border: 5px outset black; */
   margin: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 30em;
 }
+dd {
+  margin: 0;
+  padding: 4px;
+}
+ textarea {
+   width: 200px;
+   height: 1.75em;
+   resize: none;
+ }
 
-#empty-fields {
-  order: 1;
-  border: 5px solid black;
-  margin: 5px;
-}
