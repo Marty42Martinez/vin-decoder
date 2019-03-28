@@ -1,15 +1,27 @@
 // const inputVIN = '1GNFC23049R278215';
-import createVINList from './create-vin-list.js';
 import createFields from './create-fields.js';
+import { auth, vinDataRef } from './firebase/firebase.js';
 let inputVIN = '';
 const inputForm = document.getElementById('vin-input');
+const vinSection = document.getElementById('vin-section');
 const vehicleReport = document.getElementById('vehicle-report');
+const saveReportButton = document.getElementById('save-report');
 
-inputForm.addEventListener('submit', function(event) {
+// auth.onAuthStateChanged(() => {
+
+// });
+
+inputForm.addEventListener('submit', event => {
   event.preventDefault();
   clearDisplay(vehicleReport);
   inputVIN = inputForm.vin.value;
+  vinFetch(inputVIN);
+
+  saveReportButton.classList.remove('hidden');
   
+});
+
+function vinFetch(inputVIN) {
   var request = new XMLHttpRequest();
   
   const inputLocation = 'https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVIN/' + inputVIN + '?format=json';
@@ -17,7 +29,6 @@ inputForm.addEventListener('submit', function(event) {
   
   
   request.onload = function() {
-    // const emptyFields = document.getElementById('empty-fields');
     const data = JSON.parse(request.response);
     
     if(request.status >= 200 && request.status < 400) {
@@ -32,8 +43,31 @@ inputForm.addEventListener('submit', function(event) {
     }
     
   };
-
+  
   request.send();
+}
+
+saveReportButton.addEventListener('click', event => {
+  event.preventDefault();
+  let inputList = [];
+  let varList = [];
+  const formAreas = vehicleReport.querySelectorAll('textarea');
+  formAreas.forEach(area => { 
+    inputList.push(area.value); 
+  });
+  const vinVariables = vehicleReport.querySelectorAll('dt');
+  vinVariables.forEach(variable => { 
+    varList.push(variable.textContent);
+  });
+  const vinReportRef = vinDataRef.child(inputVIN);
+  let newVinData = {};
+  for(let i = 0; i < varList.length; i++) {
+    newVinData[i] = {
+      label: varList[i],
+      value: inputList[i]
+    }; 
+  }
+  vinReportRef.set(newVinData);
 });
 
 function clearDisplay(node) {

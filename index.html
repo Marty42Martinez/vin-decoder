@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" text="text/css" href="./src/main.css">
-  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
 
@@ -23,11 +23,11 @@
         </label>
         <button type="submit">Submit VIN</button>
       </form>
-
+      <input type="button" form="report-form" class="hidden" value="Save VIN Report" id="save-report">
     </section>
-    <section id="report">
+    <form id="report-form">
       <dl id="vehicle-report"></dl>
-    </section>  
+    </form>  
 
   </main>
   <script type="module" src="./src/index.js"></script>  

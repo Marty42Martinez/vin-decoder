@@ -6,11 +6,20 @@ input, button, textarea {
   background: rgb(139, 166, 192);
   color: rgb(5, 5, 202);
 }
+.hidden {
+  display: none;
+}
 dt{
   font-size:23px;
   padding: 5px;
 }
-
+#vin-section {
+  display: flex;
+  justify-content: space-between;
+}
+#vin-section > input {
+  margin-right: 100px;
+}
 #report {
   display: flex;
   flex-direction: row;
@@ -28,9 +37,9 @@ dd {
   margin: 0;
   padding: 4px;
 }
- textarea {
+textarea {
    width: 200px;
    height: 1.75em;
    resize: none;
- }
+}
 
