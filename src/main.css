@@ -12,10 +12,7 @@ input, button, textarea {
 header {
   display: flex;
   justify-content: space-between;
-  align-content: center;
-}
-header > input {
-  align-self: center;
+  align-items: center;
 }
 
 dt{
